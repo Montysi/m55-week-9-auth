@@ -28,7 +28,17 @@ const login = async (req, res) => {
     } catch (error) {
         res.status(501).json({ message: error.message, error: error });
     }
-}
+};
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({});
+
+    res.status(200).json({ message: "success", users });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: error });
+  }
+};
 
 const updatePassword = async (req, res) => {
     try {
@@ -57,4 +67,6 @@ const changeEmail = async (req, res) => {
 module.exports = {
     postTest: postTest,
     signUp: signUp,
+    login: login,
+    getAllUsers: getAllUsers,
 }
