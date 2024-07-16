@@ -5,7 +5,7 @@ const sequelize = require("../db/connection");
 const User = sequelize.define(
   "User",
   {
-    userName: {
+    username: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,

@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const User = require("../users/model");
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
@@ -20,14 +21,17 @@ const hashPass = async (req, res, next) => {
 const comparePass = async (req, res, next) => {
   try {
         
-        const user = await User.findOne({ username: req.body.userName });
-
-
-
-        const comparedPassword = await bcrypt.compare(req.body.password, user.get("password")) 
-            
         
-   
+
+
+
+        // const comparedPassword = await bcrypt.compare(req.body.password, user.get("password")) 
+            
+        const user = await User.findOne({ where: { username: req.body.username } });
+
+        req.user = user;
+
+        next();
   } catch (error) {
     res.status(500).json({ message: error.message, error });
   }
@@ -49,4 +53,5 @@ const comparePass = async (req, res, next) => {
 
 module.exports = {
     hashPass: hashPass,
+    comparePass: comparePass,
 }
