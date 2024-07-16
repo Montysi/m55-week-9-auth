@@ -2,10 +2,10 @@ const {Router} = require("express");
 const testRouter = Router();
 
 const { isData, isLowerCase } = require("../middleware/validation");
-const { postTest, addUser } = require("./controllers");
+const { postTest, signUp } = require("./controllers");
 
 testRouter.post("/postTest", isData, isLowerCase, postTest);
 
-testRouter.post("/addUser", isLowerCase, addUser);
+testRouter.post("/signUpr", isLowerCase, signUp);
 
 module.exports = testRouter;
