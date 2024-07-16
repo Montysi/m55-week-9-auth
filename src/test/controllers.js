@@ -24,7 +24,7 @@ const signUp = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        res.status(201).json({ message: "success" })
+        res.status(201).json({ message: "success", user: req.body })
     } catch (error) {
         res.status(501).json({ message: error.message, error: error });
     }

@@ -3,9 +3,10 @@ const testRouter = Router();
 
 const { isData, isLowerCase } = require("../middleware/validation");
 const { postTest, signUp } = require("./controllers");
+const { hashPass } = require("../middleware/auth");
 
 testRouter.post("/postTest", isData, isLowerCase, postTest);
 
-testRouter.post("/signUpr", isLowerCase, signUp);
+testRouter.post("/signUp", hashPass, signUp);
 
 module.exports = testRouter;
