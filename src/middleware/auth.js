@@ -30,7 +30,7 @@ const comparePass = async (req, res, next) => {
         const comparedPassword = await bcrypt.compare(req.body.password, user.password); 
 
         if (comparedPassword) {
-             req.user = user;
+            req.user = user;
             next();
         } else {
             res.status(401).json({ message: "Passwords do not match"});
@@ -41,12 +41,6 @@ const comparePass = async (req, res, next) => {
     res.status(500).json({ message: error.message, error });
   }
 };
-
-
- 
-
-
-
 
 
 module.exports = {

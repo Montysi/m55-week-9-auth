@@ -22,7 +22,7 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
-  { timestamps: false }
+  { timestamps: false, indexed: [{ unique: true, fields: ["username"] }] }
 );
 
 module.exports = User;
