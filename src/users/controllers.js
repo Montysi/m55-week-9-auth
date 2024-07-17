@@ -39,32 +39,20 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const updatePassword = async (req, res) => {
-  try {
-  } catch (error) {
-    res.status(501).json({ message: error.message, error: error });
-  }
-};
 
-const updateUsername = async (req, res) => {
+
+const updateUserInformation = async (req, res) => {
   try {
 
     const updateUsername = await User.update(
-      { [req.body.updateKey]: req.body.updateValue },
+      req.body.updateFields,
       {
         where: {
           username: req.params.username,
         },
       }
     );
-    res.status(200).json({ message: "Successfully update username"})
-  } catch (error) {
-    res.status(501).json({ message: error.message, error: error });
-  }
-};
-
-const changeEmail = async (req, res) => {
-  try {
+    res.status(200).json({ message: "Successfully updated user information"})
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
   }
@@ -74,5 +62,5 @@ module.exports = {
   signUp: signUp,
   login: login,
   getAllUsers: getAllUsers,
-  updateUsername: updateUsername,
+  updateUserInformation: updateUserInformation,
 };
