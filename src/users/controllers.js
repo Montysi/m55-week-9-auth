@@ -39,12 +39,10 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-
-
 const updateUserInformation = async (req, res) => {
   try {
 
-    const updateUsername = await User.update(
+    const updateInformation = await User.update(
       req.body.updateFields,
       {
         where: {
@@ -58,9 +56,26 @@ const updateUserInformation = async (req, res) => {
   }
 };
 
+const deleteUserByUsername = async (req, res) => {
+  try {
+
+    const username = req.body.username;
+
+    const users = await User.destroy({ where: { username: username }});
+
+    res.status(200).json({ message: `${username}'s account successfully deleted`, users: users })
+
+
+    
+  } catch (error) {
+    res.status(501).json({ message: error.message, error: error });
+  }
+}
+
 module.exports = {
   signUp: signUp,
   login: login,
   getAllUsers: getAllUsers,
   updateUserInformation: updateUserInformation,
+  deleteUserByUsername: deleteUserByUsername,
 };
