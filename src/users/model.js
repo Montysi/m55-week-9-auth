@@ -25,4 +25,26 @@ const User = sequelize.define(
   { timestamps: false, indexed: [{ unique: true, fields: ["username"] }] }
 );
 
+const UserDatabase = sequelize.define(
+  "UserDatabase",
+  {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    dateOfBirth: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    securityQuestionAnswer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { timestamps: false }
+);
+
 module.exports = User;
+module.exports = UserDatabase;

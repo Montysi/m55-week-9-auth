@@ -70,7 +70,9 @@ const deleteUserByUsername = async (req, res) => {
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
   }
-}
+};
+
+
 
 module.exports = {
   signUp: signUp,

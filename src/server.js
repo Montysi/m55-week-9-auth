@@ -7,6 +7,7 @@ const userRouter = require("./users/routes");
 const port = process.env.PORT || 5001;
 
 const User = require("./users/model");
+const UserDatabase = require("./userDatabase/model");
 
 const app = express()
 
@@ -17,7 +18,12 @@ app.use("/test", testRouter);
 app.use("/users", userRouter)
 
 const syncTables = () => {
+
+    User.hasOne(UserDatabase);
+    UserDatabase.belongsTo(User);
+
     User.sync({});
+    UserDatabase.sync({});
 }
 
 app.get("/health", (req, res) => {
