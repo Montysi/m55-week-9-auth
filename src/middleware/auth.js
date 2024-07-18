@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../users/model");
+const jwt = require("jsonwebtoken");
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
@@ -42,8 +43,42 @@ const comparePass = async (req, res, next) => {
   }
 };
 
+const verifyToken = async (req, res, next) => {
+    // const authHeader = req.headers['authorization'];
+    
+    // if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    //     return res.status(403).json({ message: "Token field empty or invalid" });
+    // };
+
+    // const token = authHeader.split(' ')[1];
+    const token = req.header("Authorization").replace("Bearer ","")
+    console.log(token)
+
+    if (!token) {
+        return res.status(403).json({ message: "Token field empty"})
+    }
+
+    let decodedToken 
+    
+     try {
+        
+        decodedToken = await jwt.verify(token, process.env.SECRET);
+
+        console.log(decodedToken);
+
+     } catch (error) {
+        return res.status(404).json({ message: "invalid token"})
+     }
+
+    
+    const user = await User.findOne({ where: { id: decodedToken.id } });
+    req.authCheck = user;
+    next();
+}
+
 
 module.exports = {
     hashPass: hashPass,
     comparePass: comparePass,
+    verifyToken: verifyToken,
 }
