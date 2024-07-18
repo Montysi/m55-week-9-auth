@@ -46,5 +46,8 @@ const UserDatabase = sequelize.define(
   { timestamps: false }
 );
 
-module.exports = User;
-module.exports = UserDatabase;
+module.exports = {
+  User,
+  UserDatabase
+};
+
