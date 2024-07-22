@@ -5,13 +5,13 @@ const sequelize = require("../db/connection");
 const User = sequelize.define(
   "User",
   {
-    userName: {
+    username: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
 
-    userEmail: {
+    email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
@@ -22,7 +22,32 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
+  { timestamps: false, indexed: [{ unique: true, fields: ["username"] }] }
+);
+
+const UserDatabase = sequelize.define(
+  "UserDatabase",
+  {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    dateOfBirth: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    securityQuestionAnswer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
   { timestamps: false }
 );
 
-module.exports = User;
+module.exports = {
+  User,
+  UserDatabase
+};
+
