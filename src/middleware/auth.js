@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const User = require("../users/model");
+const { User } = require("../users/model");
 const jwt = require("jsonwebtoken");
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS);

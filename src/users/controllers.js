@@ -2,29 +2,29 @@ const { User, UserDatabase } = require("./model");
 
 const jwt = require("jsonwebtoken");
 
+const signUp = async (req, res) => {
+  console.log("req: ", req.body);
+  try {
+    const user = await User.create(req.body);
+
+    res.status(201).json({ message: "success", user: user });
+  } catch (error) {
+    res.status(501).json({ message: error.message, error: error });
+  }
+};
+
 // const signUp = async (req, res) => {
 //   console.log("req: ", req.body);
 //   try {
 //     const user = await User.create(req.body);
+
+//     const userDatabase = await UserDatabase.create(req.body);
 
 //     res.status(201).json({ message: "success", username: user.username });
 //   } catch (error) {
 //     res.status(501).json({ message: error.message, error: error });
 //   }
 // };
-
-const signUp = async (req, res) => {
-  console.log("req: ", req.body);
-  try {
-    const user = await User.create(req.body);
-
-    const userDatabase = await UserDatabase.create(req.body);
-
-    res.status(201).json({ message: "success", username: user.username });
-  } catch (error) {
-    res.status(501).json({ message: error.message, error: error });
-  }
-};
 
 const login = async (req, res) => {
   try {
